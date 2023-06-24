@@ -8,7 +8,7 @@ const LoginScreen = () => {
     <View>
       <Text>
         {user}
-        LoginScreen, loogin to appp
+        in linux
       </Text>
     </View>
   );
