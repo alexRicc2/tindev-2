@@ -8,7 +8,7 @@ const LoginScreen = () => {
     <View>
       <Text>
         {user}
-        in linux
+        in linux, in Windows
       </Text>
     </View>
   );
