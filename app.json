@@ -3,7 +3,9 @@
     "name": "tindev-2",
     "slug": "tindev-2",
     "version": "1.0.0",
-    "plugins": ["@react-native-google-signin/google-signin"],
+    "plugins": [
+      "@react-native-google-signin/google-signin"
+    ],
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -16,7 +18,8 @@
       "**/*"
     ],
     "ios": {
-      "supportsTablet": true
+      "supportsTablet": true,
+      "bundleIdentifier": "com.alex.santanna.tindev2"
     },
     "android": {
       "googleServicesFile": "./google-services.json",

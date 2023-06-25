@@ -4,15 +4,18 @@ import StackNavigator from "./StackNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./hooks/useAuth";
 import 'expo-dev-client'
+// import { StatusBar } from 'expo-status-bar';
 export default function App() {
-  
 
   return (
+    <>
+    {/* <StatusBar style="light" /> */}
     <NavigationContainer>
       <AuthProvider>
         <StackNavigator />
       </AuthProvider>
     </NavigationContainer>
+    </>
   );
 }
 
