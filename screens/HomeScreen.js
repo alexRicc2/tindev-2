@@ -16,6 +16,7 @@ const HomeScreen = () => {
   const { signOut, user } = useAuth()
 
   const navigation = useNavigation();
+  const [userInfoFirebase, setUserInfoFirebase] = useState(null)
   const [users, setUsers] = useState([])
   const swiperRef = useRef(null);
 
@@ -28,7 +29,7 @@ const HomeScreen = () => {
         (snapshot) => snapshot.docs.map((doc) => doc.id)
       )
       const rejectsArray = rejects.length > 0 ? rejects : dumbArray
-      
+
       const accepts = await getDocs(collection(db, "users", user.uid, "accepts")).then(
         (snapshot) => snapshot.docs.map((doc) => doc.id)
       )
@@ -70,16 +71,29 @@ const HomeScreen = () => {
     setDoc(doc(db, "users", user.uid, "rejects", rejectedUser.id), rejectedUser)
   }
 
+  useEffect(() => {
+    let unsub;
+    const fetchUserInfo = async () => {
+      const userInfo = await (
+        await getDoc(doc(db, 'users', user.uid))).data()
+      setUserInfoFirebase(userInfo)
+    }
+    fetchUserInfo()
+    return unsub
+  }, [db])
+
+  console.log('userInfoFirebase', userInfoFirebase)
+
   const acceptUser = async (cardIndex) => {
-    if(!users[cardIndex])return;
+    if (!users[cardIndex]) return;
     const acceptedUser = users[cardIndex]
 
-    const userInfo = await ( 
+    const userInfo = await (
       await getDoc(doc(db, 'users', user.uid))).data()
-    
-    getDoc(doc(db, "users", acceptedUser.id, 'accepts', user.uid)).then((documentSnapshot)=>{
-      if(documentSnapshot.exists()){
-        console.log("matched")
+
+    getDoc(doc(db, "users", acceptedUser.id, 'accepts', user.uid)).then((documentSnapshot) => {
+      if (documentSnapshot.exists()) {
+        // console.log("matched")
         setDoc(doc(db, 'users', user.uid, "accepts", acceptedUser.id), acceptedUser)
 
         setDoc(doc(db, "matches", generateNewId(user.uid, acceptedUser.id)), {
@@ -94,7 +108,7 @@ const HomeScreen = () => {
           userInfo, acceptedUser
         })
       }
-      else{
+      else {
         setDoc(doc(db, "users", user.uid, "accepts", acceptedUser.id), acceptedUser)
       }
     })
@@ -105,8 +119,8 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ alignItems: 'center', position: 'relative', justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: 20, paddingVertical: 5 }}>
-        <TouchableOpacity onPress={signOut}>
-          <Image source={{ uri: user.photoURL }} style={{ height: 40, width: 40, borderRadius: 20 }} />
+        <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
+          <Image source={{ uri: userInfoFirebase?.photoURL ?? user.photoURL }} style={{ height: 40, width: 40, borderRadius: 20 }} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate('ModalRegisterScreen')}>
           <Image source={require('../assets/icon.png')} style={{ height: 50, width: 50 }} />
@@ -123,7 +137,7 @@ const HomeScreen = () => {
           animateCardOpacity
           cards={users}
           onSwipedRight={(cardIndex) => rejectUser(cardIndex)}
-          onSwipedLeft={(cardIndex)=> acceptUser(cardIndex)}
+          onSwipedLeft={(cardIndex) => acceptUser(cardIndex)}
           ref={swiperRef}
           overlayLabels={{
             right: {

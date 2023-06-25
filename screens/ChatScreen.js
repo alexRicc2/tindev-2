@@ -31,7 +31,7 @@ const ChatScreen = () => {
         <FlatList data={matches}
           keyExtractor={item => item.id}
           renderItem={({ item }) => {
-            console.log('item:', item)
+            // console.log('item:', item)
           
             // we fetch matches from firestore, but the data is stored with users object that contains both users, so we manipulate the data to get only the accepted user
             const users = item.users

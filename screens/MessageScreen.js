@@ -34,7 +34,7 @@ const MessageScreen = () => {
         })
         setTextMessage('')
     }
-    console.log('messages:', messages)
+    // console.log('messages:', messages)
     return (
         <View style={{ flex: 1 }}>
             <ChatHeader title={userToChatWith.displayName} photoURL={userToChatWith.photoURL}/>

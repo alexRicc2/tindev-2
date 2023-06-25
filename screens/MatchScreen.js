@@ -9,7 +9,7 @@ const MatchScreen = () => {
     const { params } = useRoute()
     const { userInfo, acceptedUser } = params;
 
-    console.log("userInfo", userInfo)
+    // console.log("userInfo", userInfo)
 
     return (
         <View style={{height: '100%', backgroundColor: '#00233b', alignItems: 'center', paddingTop: 90, position: 'relative'}}>
