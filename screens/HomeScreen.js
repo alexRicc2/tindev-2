@@ -1,29 +1,38 @@
 import { View, Text, Button, SafeAreaView, TouchableOpacity, Image, StyleSheet } from "react-native";
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import { useNavigation } from "@react-navigation/core";
 import useAuth from "../hooks/useAuth";
 import { AntDesign, Entypo, Ionicons } from '@expo/vector-icons'
+import { FontAwesome5 } from '@expo/vector-icons'; 
 import { useLayoutEffect } from "react";
 import Swiper from 'react-native-deck-swiper'
 import { DATA } from "../assets/data/dummyUsers";
+import {onSnapshot, doc} from 'firebase/firestore'
+import { db } from "../firebaseConfig";
+
 const HomeScreen = () => {
   const { signOut, user } = useAuth()
 
   const navigation = useNavigation();
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerShown: false
-    })
-  }, [])
-  console.log("user", user.photoURL)
+  const [users, setUsers] = useState([])
   const swiperRef = useRef(null);
+
+
+  //redirect to modalScreen if current logged user is not in firestore db
+  useLayoutEffect(()=> onSnapshot(doc(db, "users", user.uid), (snapshot) => {
+    if(!snapshot.exists()){
+      navigation.navigate("ModalRegisterScreen")
+    }
+  }))
+
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ alignItems: 'center', position: 'relative', justifyContent: 'space-between', flexDirection: 'row', padding: 5 }}>
         <TouchableOpacity onPress={signOut}>
           <Image source={{ uri: user.photoURL }} style={{ height: 40, width: 40, borderRadius: 20 }} />
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={()=> navigation.navigate('ModalRegisterScreen')}>
           <Image source={require('../assets/icon.png')} style={{ height: 50, width: 50 }} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
@@ -36,7 +45,7 @@ const HomeScreen = () => {
           cardIndex={0}
           verticalSwipe={false}
           animateCardOpacity
-          cards={DATA}
+          cards={users}
           ref={swiperRef}
           overlayLabels={{
             right:{
@@ -59,8 +68,7 @@ const HomeScreen = () => {
             }
           }}
           containerStyle={{ backgroundColor: 'transparent' }}
-          renderCard={card => {
-            return (
+          renderCard={card => card ? (
 
               <View key={card.id} style={{ position: 'relative', backgroundColor: 'red', height: '75%', borderRadius: 25 }}>
                 <Image
@@ -81,8 +89,13 @@ const HomeScreen = () => {
                   <Text style={{fontSize: 25, fontWeight: 'bold'}}>{card.age}</Text>
                 </View>
               </View>
+            ) : (
+              <View style={{backgroundColor: "#ccc", position: 'relative', height: "75%", borderRadius: 25, justifyContent: 'center', alignItems: 'center'}}>
+                <Text style={{marginBottom: 10}}>No more devs</Text>
+                <FontAwesome5 name="sad-cry" size={80} color="black" />
+                </View>
             )
-          }}
+          }
          />
       </View>
 
@@ -90,6 +103,7 @@ const HomeScreen = () => {
   <TouchableOpacity onPress={()=> swiperRef.current.swipeLeft()} style={{justifyContent: 'center', alignItems: 'center', width: 50, height: 50, backgroundColor: '#02A9EA', borderRadius: 25}}>
     <Entypo name="check" size={30}/>
   </TouchableOpacity>
+
   <TouchableOpacity
   onPress={()=> swiperRef.current.swipeRight()}
   style={{justifyContent: 'center', alignItems: 'center', width: 50, height: 50, backgroundColor: '#FF5964', borderRadius: 25}}>
