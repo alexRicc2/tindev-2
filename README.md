@@ -6,3 +6,4 @@
 - styles
 - verify empyt cards decks
 - .env variables
+- users with no images
