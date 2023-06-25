@@ -1,62 +1,32 @@
-import { View, Text } from "react-native";
-import React from "react";
+import { View, Text, ImageBackground, TouchableOpacity } from "react-native";
+import React, { useLayoutEffect } from "react";
 import useAuth from "../hooks/useAuth";
-import { GoogleSignin, GoogleSigninButton} from '@react-native-google-signin/google-signin'
-import auth from '@react-native-firebase/auth';
-import { useState, useEffect } from "react";
+import { useNavigation } from "@react-navigation/core";
+import { GoogleSignin, GoogleSigninButton } from '@react-native-google-signin/google-signin'
+
 const LoginScreen = () => {
-  
-  
-  GoogleSignin.configure({
-    webClientId: '963463176931-tm1in0plmsk34di0n05vsq8icrnd6rqb.apps.googleusercontent.com'
-  })
-  
-  
-  // Set an initializing state whilst Firebase connects
-  const [initializing, setInitializing] = useState(true);
-  const { user, updateUser } = useAuth();
 
- // Handle user state changes
- function onAuthStateChanged(user) {
-    updateUser(user);
-   if (initializing) setInitializing(false);
- }
-
- useEffect(() => {
-   const subscriber = auth().onAuthStateChanged(onAuthStateChanged);
-   return subscriber; // unsubscribe on unmount
-  }, []);
-
-  
-  
-  const onGoogleButtonPress = async() => {
-    // Check if your device supports Google Play
-    await GoogleSignin.hasPlayServices({ showPlayServicesUpdateDialog: true });
-    // Get the users ID token
-    const { idToken } = await GoogleSignin.signIn();
-    
-    // Create a Google credential with the token
-    const googleCredential = auth.GoogleAuthProvider.credential(idToken);
-    
-    // Sign-in the user with the credential
-    // return auth().signInWithCredential(googleCredential);
-    const user_sign_in = auth().signInWithCredential(googleCredential)
-    user_sign_in.then((user)=>{
-      console.log(user)
+  const { googleSignin } = useAuth()
+  const navigation = useNavigation();
+  useLayoutEffect(() => {
+    navigation.setOptions({
+      headerShown: false
     })
-    .catch((error)=>{
-      console.log(error)
-    })
-  }
-  if (initializing) return null;
+  }, [])
 
   return (
-    <View>
-      <Text>
-        {user}
-        in linux, in Windows, etc
-      </Text>
-      <GoogleSigninButton onPress={onGoogleButtonPress }/>
+    <View style={{ flex: 1, backgroundColor: '#00233b' }}>
+      <ImageBackground
+        resizeMode="contain"
+        style={{ flex: 1 }}
+        source={require("../assets/logo.png") }
+      >
+        <View style={{ position: "absolute", bottom: 200, marginHorizontal: "25%"}}>
+
+          <GoogleSigninButton onPress={googleSignin} style={{marginLeft: -15}}/>
+          
+        </View>
+      </ImageBackground>
     </View>
   );
 };
