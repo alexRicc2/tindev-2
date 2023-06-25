@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "963463176931",
+    "project_id": "tindev-linux",
+    "storage_bucket": "tindev-linux.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:963463176931:android:119f6320af86f521fedbd6",
+        "android_client_info": {
+          "package_name": "com.alex.santanna.tindev2"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "963463176931-oej0ciqacg9todie7dfmir3e074lbnp4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alex.santanna.tindev2",
+            "certificate_hash": "f3fb05a4988087f81e144db9aff21ed5ffedf7ac"
+          }
+        },
+        {
+          "client_id": "963463176931-pev9a1fmqmvtm8i1fsug8m95q9b9kori.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.alex.santanna.tindev2",
+            "certificate_hash": "c0bef8ea50b1068a6fdd3c671b7442870edb5147"
+          }
+        },
+        {
+          "client_id": "963463176931-tm1in0plmsk34di0n05vsq8icrnd6rqb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDN8NQ5vgDpj0I4Mu-knwDlDi0X8XpiNq0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "963463176931-tm1in0plmsk34di0n05vsq8icrnd6rqb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

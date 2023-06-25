@@ -2,7 +2,13 @@ import { StyleSheet } from "react-native";
 import StackNavigator from "./StackNavigator";
 import { NavigationContainer } from "@react-navigation/native";
 import { AuthProvider } from "./hooks/useAuth";
+import 'expo-dev-client'
+
 export default function App() {
+
+
+  
+
   return (
     <NavigationContainer>
       <AuthProvider>
