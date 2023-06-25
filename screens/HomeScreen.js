@@ -118,12 +118,12 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <View style={{ alignItems: 'center', position: 'relative', justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: 20, paddingVertical: 5 }}>
-        <TouchableOpacity onPress={signOut}>
+        <TouchableOpacity onPress={signOut} style={{position: 'relative'}}>
           <Image source={{ uri: userInfoFirebase?.photoURL ?? user.photoURL }} style={{ height: 40, width: 40, borderRadius: 20 }} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => navigation.navigate('ModalRegisterScreen')} style={{position: 'absolute'}}>
-          <Image source={require('../assets/icon.png')} style={{ height: 50, width: 50 }} />
           <SimpleLineIcons name="logout" size={12} color="red" style={{position: 'absolute', bottom: 0, right:0}}/> 
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => navigation.navigate('ModalRegisterScreen')} >
+          <Image source={require('../assets/icon.png')} style={{ height: 50, width: 50 }} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
           <Ionicons name="chatbox" size={40} color="#2d3ce9" />
