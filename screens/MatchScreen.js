@@ -1,5 +1,6 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import React from 'react'
+import { MaterialCommunityIcons } from '@expo/vector-icons';
 import { useNavigation, useRoute } from '@react-navigation/core'
 
 const MatchScreen = () => {
@@ -8,13 +9,14 @@ const MatchScreen = () => {
     const { params } = useRoute()
     const { userInfo, acceptedUser } = params;
 
-
+    console.log("userInfo", userInfo)
 
     return (
-        <View style={{height: '100%', backgroundColor: '#00233b'}}>
-            <Text>MatchScreen</Text>
+        <View style={{height: '100%', backgroundColor: '#00233b', alignItems: 'center', paddingTop: 90, position: 'relative'}}>
+            <MaterialCommunityIcons name="party-popper" size={60} color="#fff" />
+            <Text style={{color: '#fff', textAlign: 'center'}}>Matched it!</Text>
 
-            <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20}}>
+            <View style={{flexDirection: 'row', justifyContent: 'space-evenly', marginTop: 20, width: '100%', marginTop: 60}}>
                 <Image source={{uri: userInfo.photoURL}} style={styles.image}/>
                 <Image source={{uri: acceptedUser.photoURL}} style={styles.image}/>
             </View>
@@ -22,7 +24,7 @@ const MatchScreen = () => {
                 navigation.goBack()
                 navigation.navigate('ChatScreen')
             }} style={styles.chatButton}>
-                <Text style={{color: '#fff'}}>Chat</Text>
+                <Text style={{color: '#00233b', textAlign: 'center'}}>Chat</Text>
             </TouchableOpacity>
         </View>
     )
@@ -32,16 +34,17 @@ export default MatchScreen
 
 const styles= StyleSheet.create({
     image:{
-        width: 50,
-        height: 50,
-        borderRadius: 25
+        width: 150,
+        height: 150,
+        borderRadius: 50
 
     },
     chatButton: {
         padding: 20,
         borderRadius: 25,
         marginTop: 20,
-        backgroundColor: '#00233b',
-
+        backgroundColor: '#fff',
+        position: 'absolute',
+        bottom: 20
     }
 })

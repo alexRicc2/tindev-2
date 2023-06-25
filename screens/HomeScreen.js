@@ -104,7 +104,7 @@ const HomeScreen = () => {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <View style={{ alignItems: 'center', position: 'relative', justifyContent: 'space-between', flexDirection: 'row', padding: 5 }}>
+      <View style={{ alignItems: 'center', position: 'relative', justifyContent: 'space-between', flexDirection: 'row', paddingHorizontal: 20, paddingVertical: 5 }}>
         <TouchableOpacity onPress={signOut}>
           <Image source={{ uri: user.photoURL }} style={{ height: 40, width: 40, borderRadius: 20 }} />
         </TouchableOpacity>
@@ -112,7 +112,7 @@ const HomeScreen = () => {
           <Image source={require('../assets/icon.png')} style={{ height: 50, width: 50 }} />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
-          <Ionicons name="chatbox" size={40} color="#00233b" />
+          <Ionicons name="chatbox" size={40} color="#2d3ce9" />
         </TouchableOpacity>
       </View>
       <View style={{ flex: 1, marginTop: -12 }}>
@@ -168,9 +168,9 @@ const HomeScreen = () => {
               </View>
             </View>
           ) : (
-            <View style={{ backgroundColor: "#ccc", position: 'relative', height: "75%", borderRadius: 25, justifyContent: 'center', alignItems: 'center' }}>
+            <View style={{ backgroundColor: "#ddd", position: 'relative', height: "75%", borderRadius: 25, justifyContent: 'center', alignItems: 'center' }}>
               <Text style={{ marginBottom: 10 }}>No more devs</Text>
-              <FontAwesome5 name="sad-cry" size={80} color="#00233b" />
+              <FontAwesome5 name="sad-cry" size={80} color="#fa0eb8" />
             </View>
           )
           }
